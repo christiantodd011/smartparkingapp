@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Smart Campus Security & Parking System</h1>
+
+<div class="card">
+    <h2>Secure Login / Face Recognition</h2>
+    <p>Face recognition is simulated for this demo.</p>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <label>Select Role:</label><br>
+        <select name="role">
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+            <option value="staff">Staff</option>
+            <option value="admin">Admin</option>
+        </select><br><br>
+
+        <label>ID Number:</label><br>
+        <input type="text" name="user_id" placeholder="Students, faculty, and staff enter ID"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" placeholder="Enter password"><br><br>
+
+        <button type="submit">Scan Face / Login</button>
+    </form>
+
+    <p><strong>User Password:</strong> user123</p>
+    <p><strong>Admin Password:</strong> admin123</p>
+</div>
+
+</body>
+</html>

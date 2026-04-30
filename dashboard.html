@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="card">
+    <h2>{{ user }}</h2>
+    <p>Role: {{ role }}</p>
+
+    <div class="grid">
+        <a class="tile" href="/parking">Live Parking</a>
+
+        {% if role == "user" %}
+            <a class="tile" href="/profile">My Profile</a>
+            <a class="tile" href="/vehicles">Vehicle Management</a>
+            <a class="tile" href="/tickets">Tickets & Balance</a>
+        {% endif %}
+
+        {% if role == "admin" %}
+            <a class="tile" href="/admin">Admin Panel</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

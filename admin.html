@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Admin Panel</h1>
+
+<div class="card">
+    <h2>Search User</h2>
+    <form method="GET">
+        <input type="text" name="search" placeholder="Search by name, ID, or role" value="{{ search }}">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<h2>All User Records</h2>
+
+{% for user in users %}
+<div class="card">
+    <h2>{{ user[2] or "Unnamed User" }}</h2>
+
+    <p><strong>ID:</strong> {{ user[0] }}</p>
+    <p><strong>User Type:</strong> {{ user[1] }}</p>
+    <p><strong>Phone:</strong> {{ user[3] }}</p>
+    <p><strong>Email:</strong> {{ user[4] }}</p>
+    <p><strong>Residence / Building:</strong> {{ user[5] }}</p>
+    <p><strong>Decal Status:</strong> {{ user[6] }}</p>
+    <p><strong>Decal Number:</strong> {{ user[7] or "No decal purchased" }}</p>
+    <p><strong>Vehicles Registered:</strong> {{ user[8] }}</p>
+    <p><strong>Total Tickets:</strong> {{ user[9] }}</p>
+    <p><strong>Unpaid Balance:</strong> ${{ "%.2f"|format(user[10]) }}</p>
+
+    <form method="POST">
+        <input type="hidden" name="action" value="decal">
+        <input type="hidden" name="user_id" value="{{ user[0] }}">
+
+        <select name="decal_status">
+            <option value="Purchased">Purchased</option>
+            <option value="No Decal">No Decal</option>
+        </select>
+
+        <button type="submit">Update Decal</button>
+    </form>
+
+    <form method="POST">
+        <input type="hidden" name="action" value="ticket">
+        <input type="hidden" name="user_id" value="{{ user[0] }}">
+
+        <input type="text" name="reason" placeholder="Ticket reason">
+        <input type="number" step="0.01" name="amount" placeholder="Amount">
+
+        <button type="submit">Add Ticket</button>
+    </form>
+</div>
+{% endfor %}
+
+<h2>All Vehicles</h2>
+
+{% for vehicle in vehicles %}
+<div class="card">
+    <p><strong>User ID:</strong> {{ vehicle[0] }}</p>
+    <p><strong>Plate:</strong> {{ vehicle[1] }}</p>
+    <p><strong>Make:</strong> {{ vehicle[2] }}</p>
+    <p><strong>Model:</strong> {{ vehicle[3] }}</p>
+    <p><strong>Color:</strong> {{ vehicle[4] }}</p>
+    <p><strong>Decal Number:</strong> {{ vehicle[5] or "No decal purchased" }}</p>
+</div>
+{% endfor %}
+
+<h2>All Tickets & Balances</h2>
+
+{% for ticket in tickets %}
+<div class="card">
+    <p><strong>Ticket ID:</strong> {{ ticket[0] }}</p>
+    <p><strong>User ID:</strong> {{ ticket[1] }}</p>
+    <p><strong>Reason:</strong> {{ ticket[2] }}</p>
+    <p><strong>Amount:</strong> ${{ "%.2f"|format(ticket[3]) }}</p>
+    <p><strong>Status:</strong> {{ ticket[4] }}</p>
+
+    {% if ticket[4] == "Unpaid" %}
+    <form method="POST">
+        <input type="hidden" name="action" value="paid">
+        <input type="hidden" name="ticket_id" value="{{ ticket[0] }}">
+
+        <button type="submit">Mark Paid</button>
+    </form>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}
