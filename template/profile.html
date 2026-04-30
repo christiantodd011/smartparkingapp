@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My Profile</h1>
+
+<div class="card">
+    <form method="POST">
+        <label>ID Number:</label><br>
+        <input type="text" value="{{ user_data[0] }}" readonly><br><br>
+
+        <label>User Type:</label><br>
+        <input type="text" value="{{ user_data[1] }}" readonly><br><br>
+
+        <label>Full Name:</label><br>
+        <input type="text" name="full_name" value="{{ user_data[2] or '' }}"><br><br>
+
+        <label>Phone:</label><br>
+        <input type="text" name="phone" value="{{ user_data[3] or '' }}"><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" value="{{ user_data[4] or '' }}"><br><br>
+
+        <label>Residence / Building:</label><br>
+        <input type="text" name="residence" value="{{ user_data[5] or '' }}"><br><br>
+
+        <p><strong>Decal Status:</strong> {{ user_data[6] }}</p>
+        <p><strong>Decal Number:</strong> {{ user_data[7] or "No decal purchased" }}</p>
+
+        <button type="submit">Save Profile</button>
+    </form>
+</div>
+{% endblock %}

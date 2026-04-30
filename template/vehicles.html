@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Vehicle Management</h1>
+
+<div class="card">
+    <form method="POST">
+        <label>License Plate:</label><br>
+        <input type="text" name="plate" required><br><br>
+
+        <label>Make:</label><br>
+        <input type="text" name="make" required><br><br>
+
+        <label>Model:</label><br>
+        <input type="text" name="model" required><br><br>
+
+        <label>Color:</label><br>
+        <input type="text" name="color" required><br><br>
+
+        <p><strong>Decal number is automatically applied after decal purchase.</strong></p>
+
+        <button type="submit">Add Vehicle</button>
+    </form>
+</div>
+
+{% for vehicle in vehicles %}
+<div class="card">
+    <p><strong>Plate:</strong> {{ vehicle[1] }}</p>
+    <p><strong>Make:</strong> {{ vehicle[2] }}</p>
+    <p><strong>Model:</strong> {{ vehicle[3] }}</p>
+    <p><strong>Color:</strong> {{ vehicle[4] }}</p>
+    <p><strong>Decal Number:</strong> {{ vehicle[5] or "No decal purchased" }}</p>
+
+    <a href="/delete_vehicle/{{ vehicle[0] }}">Delete Vehicle</a>
+</div>
+{% endfor %}
+
+{% endblock %}

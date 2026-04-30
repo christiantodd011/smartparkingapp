@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Tickets & Balance</h1>
+
+<div class="card">
+    <h2>Current Balance: ${{ "%.2f"|format(balance) }}</h2>
+
+    <p><strong>Decal Status:</strong> {{ decal_status }}</p>
+    <p><strong>Decal Number:</strong> {{ decal_number or "No decal purchased" }}</p>
+
+    {% if decal_status != "Purchased" %}
+        <a href="/buy_decal">Purchase Parking Decal - $75.00</a>
+    {% else %}
+        <p>You already have an active parking decal.</p>
+    {% endif %}
+</div>
+
+{% for ticket in tickets %}
+<div class="card">
+    <p><strong>Ticket ID:</strong> {{ ticket[0] }}</p>
+    <p><strong>Reason:</strong> {{ ticket[1] }}</p>
+    <p><strong>Amount:</strong> ${{ "%.2f"|format(ticket[2]) }}</p>
+    <p><strong>Status:</strong> {{ ticket[3] }}</p>
+
+    {% if ticket[3] == "Unpaid" %}
+        <a href="/pay_ticket/{{ ticket[0] }}">Pay Ticket</a>
+    {% else %}
+        <p><strong>Payment:</strong> Completed</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}

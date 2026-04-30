@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Campus Parking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <div class="logo">Norfolk State Parking</div>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/parking">Parking</a>
+
+        {% if session.get("role") == "user" %}
+            <a href="/profile">Profile</a>
+            <a href="/vehicles">Vehicles</a>
+            <a href="/tickets">Tickets & Balance</a>
+        {% endif %}
+
+        {% if session.get("role") == "admin" %}
+            <a href="/admin">Admin</a>
+        {% endif %}
+
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

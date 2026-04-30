@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Live Parking Availability</h1>
+
+<div class="card">
+    {% for lot in lots %}
+        <h3>{{ lot.lot }}</h3>
+        <p>Open Spaces: {{ lot.open }} / {{ lot.total }}</p>
+    {% endfor %}
+
+    <a href="/live_parking">Refresh Live Parking</a>
+</div>
+{% endblock %}
